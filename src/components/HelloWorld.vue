@@ -32,7 +32,10 @@ export default {
       videos: []
     }
   },
-  mounted(){     
+  props: ['searchText'],
+  mounted(){    
+      console.log("searchText"); 
+      console.log(this.searchText); 
       this.videos = this.$getYoutubeData('search', {
           maxResult: '25',
           part: 'snippet',

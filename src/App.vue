@@ -25,9 +25,20 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar app fixed clipped-left>
+    <v-toolbar  color="red" dense fixed clipped-left app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title>Vue Youtube Music Player</v-toolbar-title>
+      <v-layout row align-center style="max-width: 650px;margin-left: 30px;">
+        <v-text-field
+          placeholder="Search..."
+          single-line
+          append-icon="search"
+          :append-icon-cb="searchClick"
+          class="white--text"
+          v-model="searchText"
+          hide-details
+        ></v-text-field>
+      </v-layout>
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
@@ -46,10 +57,18 @@
 export default {
   name: 'app',
    data: () => ({
-      drawer: null
+      drawer: null,
+      searchText: ''
     }),
     props: {
       source: String
+    },
+    methods: {
+      searchClick: function() {
+        console.log("click");
+        this.$router.push({name: "HelloWorld",params: { searchText: this.searchText  }});
+        console.log(this.$router);
+      }
     }
 }
 </script>
