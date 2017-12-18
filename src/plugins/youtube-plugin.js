@@ -3,6 +3,7 @@ const YoutubePlugin = {
   install(Vue, options) {
  
    Vue.prototype.$getYoutubeData =  function (method, params) {  
+        console.log(params)
        var xhr = new XMLHttpRequest();
         var urlParams = "?"
         for(var attr in params){

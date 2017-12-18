@@ -12,15 +12,31 @@
             <v-icon>dashboard</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Dashboard</v-list-tile-title>
+            <v-list-tile-title @click.stop="drawer = !drawer"><router-link  :to="{name: 'SearchList'}">Main</router-link></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile @click="">
+        <v-list-tile @click="" v-if="isLogin">
           <v-list-tile-action>
-            <v-icon>settings</v-icon>
+            <v-icon>list</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Settings</v-list-tile-title>
+            <v-list-tile-title@click.stop="drawer = !drawer"><router-link :to="{name: 'PlayLists'}">Play lists</router-link></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="" v-if="!isLogin">
+          <v-list-tile-action>
+            <v-icon>account_box</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title@click.stop="drawer = !drawer"><router-link :to="{name: 'LoginForm'}">Login</router-link></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="" v-if="isLogin">
+          <v-list-tile-action>
+            <v-icon>exit_to_app</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title v-on:click="logout">Logout</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -43,33 +59,63 @@
     <v-content>
       <v-container fluid fill-height>
         <v-layout justify-center align-center>
-         <router-view></router-view>
+         <router-view :key="$route.fullPath"></router-view>
         </v-layout>
       </v-container>
     </v-content>
     <v-footer app fixed>
-      <span>&copy; 2017</span>
+      <span>&copy; github.com/mhackiewicz </span>
     </v-footer>
   </v-app>
 </template>
 
 <script>
+
+import { mapActions} from 'vuex'
+import Firebase from 'firebase'
+
 export default {
   name: 'app',
    data: () => ({
       drawer: null,
-      searchText: ''
+      searchText: '',
+      isLogin: Firebase.auth().currentUser
     }),
     props: {
       source: String
     },
+    mounted() {
+      var that = this;
+      Firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          that.isLogin = true;
+        } else {
+           that.isLogin = false;
+          
+        }
+      });
+    }, 
     methods: {
+      ...mapActions({
+         'changeText' : 'changeSearchText'               
+      }),
       searchClick: function() {
-        console.log("click");
-        this.$router.push({name: "HelloWorld",params: { searchText: this.searchText  }});
-        console.log(this.$router);
+        this.changeText(this.searchText)  
+        this.$router.push({ name: 'SearchList'})     
+       
+      },
+      logout: function(){
+        this.drawer = !this.drawer;
+        Firebase.auth().signOut();
+        this.$router.push({ name: 'SearchList'}) 
       }
     }
 }
 </script>
+
+<style scoped>
+  .navigation-drawer a {
+    text-decoration: none !important;
+  }
+</style>
 
