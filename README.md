@@ -2,10 +2,19 @@
 
 > Simple Vue app for listening music from Youtube
 
+## Features
+* Login/Register user
+* Searching on Youtube
+* Create playlists
+* Add video to playlist
+* Play video
+
 ## Technologies
 * Vue.Js
+* Vuex
 * Vuetify (Material Design)
 * Youtube Data API
+* Firebase
 
 ## Build Setup
 
