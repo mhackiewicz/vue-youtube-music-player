@@ -8,6 +8,7 @@
 * Create playlists
 * Add video to playlist
 * Play video
+* Play music from playlist from youtube
 
 ## Technologies
 * Vue.Js
