@@ -96,7 +96,11 @@ export default {
     openInNew: function(videoId){
       this.$router.push({ name: 'Player', params: { videoId: videoId }})
     },
-    play: function(video){        
+    play: function(video){
+      if(Object.keys(this.currentVideo).length !== 0) {
+        this.videos[this.videos.indexOf(this.currentVideo)].isPlay = false;
+      }
+              
       this.player.loadVideoById(video.id)    
       this.currentVideo = video;
       video.isPlay = true;           
@@ -106,6 +110,9 @@ export default {
       firebase.database().ref('playlists/'+this.playlistId+'/videos/'+key).remove();
     },
     playAll: function(){     
+       if(Object.keys(this.currentVideo).length !== 0) {
+        this.videos[this.videos.indexOf(this.currentVideo)].isPlay = false;
+       }
        this.videos[0].isPlay = true;
        this.player.loadVideoById(this.videos[0].id)
        this.currentVideo = this.videos[0];      
@@ -134,7 +141,9 @@ export default {
     background-color: #d15151;    
   }
   .list__tile__sub-title {
-    max-width: 200px;
+    width: auto;
+    white-space: normal;
+
   }
 </style>
 
