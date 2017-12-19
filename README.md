@@ -1,7 +1,8 @@
 # vue-youtube-music-player
 
 > Simple Vue app for listening music from Youtube
-
+## Demo
+> https://vue-playlists-app.herokuapp.com/
 ## Features
 * Login/Register user
 * Searching on Youtube
