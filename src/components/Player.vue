@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-  	<v-btn flat color="orange" v-on:click="goBack">BACK</v-btn>     	
+  	<v-btn flat color="orange" v-on:click="goBack">BACK</v-btn>        
      <v-container grid-list-md text-xs-center>
      
      <v-layout row wrap>
@@ -23,12 +23,14 @@
 <script>
 
 import {db} from '@/firebase'
+import firebase from 'firebase'
 
 export default {
   name: 'Player',  
   data () {
     return {          
-      video: {}     
+      video: {},
+      playlists: [],     
     }
   },
   props: ["videoId"],
@@ -40,11 +42,11 @@ export default {
 
    
 	
- },
- firebase: {
-    playlists: db.ref('playlists')    
- },
+ }, 
  mounted() {
+ 	var ref = firebase.database().ref('users/'+firebase.auth().currentUser.uid+'/playlists');
+    this.$bindAsArray('playlists', ref)  
+
  	var iFrame = document.getElementById( 'player' );
     window.addEventListener('resize', function(e) {		
 		resizeIFrameToFitContent( iFrame );
@@ -57,18 +59,12 @@ export default {
     	iFrame.height  = window.innerHeight-200;    	
 	}
  },  
-  methods: {
+ methods: {
   	goBack: function(){
   		this.$router.go(-1);
   	},
-  	addToPlaylist: function(playlistKey, playlist){
-  	    db.ref('playlists/'+playlistKey).set({
-  	    	title: playlist.title,
-  	    	videos: this.video.id
-  	    })	
-  	    
-  	    db.ref('playlists/'+playlistKey+"/videos/"+this.video.id).set(this.video);		
-  		
+  	addToPlaylist: function(playlistKey, playlist){  		
+  	    db.ref('users/'+firebase.auth().currentUser.uid+'/playlists/'+playlistKey+'/videos').push(this.video);  	    		
   	}
   }
  

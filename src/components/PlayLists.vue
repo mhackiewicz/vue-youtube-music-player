@@ -48,6 +48,7 @@
 <script>
 
 import {db} from '@/firebase'
+import firebase from 'firebase'
 
 
 export default {
@@ -59,24 +60,21 @@ export default {
        name:""      
     }
   },
-  mounted(){  
+  mounted(){ 
+    var ref = firebase.database().ref('users/'+firebase.auth().currentUser.uid+'/playlists');
+    this.$bindAsArray('playlists', ref)   
   },
-  firebase: {
-    playlists: db.ref('playlists')    
-  },
+
   methods: {
     addNewPlayList: function(){
       var playlist= {
          title: this.name
       }
-      this.$firebaseRefs.playlists.push(playlist, function(error){           
-          if(error){
-            alert("error");
-          }
-      });
+      db.ref('users/'+firebase.auth().currentUser.uid+'/playlists').push(playlist);
+     
     },
     goToList: function(playlistKey){
-      //this.$router
+       this.$router.push({ name: 'PlayList', params: { playlistId: playlistKey }})
     }
   }
 

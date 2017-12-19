@@ -42,10 +42,12 @@ const store = new Vuex.Store({
 })
 
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  store: store,
-  template: '<App/>',
-  components: { App }
-})
+Firebase.auth().onAuthStateChanged(function(user) {
+	new Vue({
+	  el: '#app',
+	  router,
+	  store: store,
+	  template: '<App/>',
+	  components: { App }
+	})
+});

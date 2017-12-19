@@ -34,6 +34,7 @@
 
 <script>
 import firebase from 'firebase'
+import {db} from '@/firebase'
 
 export default {
   name: 'LoginForm',  
@@ -46,8 +47,16 @@ export default {
   methods: {
   	submit: function(){
 		firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
-			(user) => {						
+			(user) => {									
+				db.ref('users').child(user.uid).set({
+					userId: user.uid, 
+					email: user.email
+				});			
+							
 				this.$router.push({name: 'PlayLists'});				
+				
+				
+						
 			},
 			(err) => {
 				alert('Oops. '+err.message)				

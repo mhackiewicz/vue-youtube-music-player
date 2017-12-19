@@ -48,7 +48,7 @@ export default {
   	submit: function(){
 		firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
 			(user) => {						
-				this.$router.push({name: 'PlayLists'});				
+				this.$router.push({name: 'PlayLists'});								
 			},
 			(err) => {
 				alert('Oops. '+err.message)				

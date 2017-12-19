@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import SearchList from '@/components/SearchList'
 import PlayLists from '@/components/PlayLists'
+import PlayList from '@/components/PlayList'
 import Player from '@/components/Player'
 import LoginForm from '@/components/LoginForm'
 import RegisterForm from '@/components/RegisterForm'
@@ -19,6 +20,12 @@ export default new Router({
       path: '/play-lists',
       name: 'PlayLists',
       component: PlayLists
+    },
+    {
+      path: '/play-list/:playlistId',
+      name: 'PlayList',
+      component: PlayList,
+      props: true
     },
     {
       path: '/player/:videoId',
