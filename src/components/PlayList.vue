@@ -107,7 +107,7 @@ export default {
       
     },
     remove: function(key){      
-      firebase.database().ref('playlists/'+this.playlistId+'/videos/'+key).remove();
+      firebase.database().ref('users/'+firebase.auth().currentUser.uid+'/playlists/'+this.playlistId+'/videos/'+key).remove();
     },
     playAll: function(){     
        if(Object.keys(this.currentVideo).length !== 0) {
