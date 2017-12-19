@@ -15,7 +15,7 @@
               <v-icon v-on:click="stop(video)">pause_circle_filled</v-icon>
             </v-list-tile-action>                   
             <v-list-tile-content v-on:click="play(video)">
-              <v-list-tile-title>{{video.snippet.title}}</v-list-tile-title>
+              <v-list-tile-sub-title v-html="video.snippet.title"></v-list-tile-sub-title>
             </v-list-tile-content>
              <v-list-tile-action>
               <v-icon v-on:click="openInNew(video.id)">open_in_browser</v-icon>
@@ -132,6 +132,9 @@ export default {
 <style scoped>
   .is_play_true {
     background-color: #d15151;    
+  }
+  .list__tile__sub-title {
+    max-width: 200px;
   }
 </style>
 

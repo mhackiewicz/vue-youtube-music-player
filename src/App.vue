@@ -7,6 +7,9 @@
       app
     >
       <v-list dense>
+        <v-list-tile>
+         <h3>Vue Youtube Music Player</h3>
+        </v-list-tile>
         <v-list-tile @click="">
           <v-list-tile-action>
             <v-icon>dashboard</v-icon>
@@ -43,7 +46,7 @@
     </v-navigation-drawer>
     <v-toolbar  color="red" dense fixed clipped-left app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>Vue Youtube Music Player</v-toolbar-title>
+      <v-toolbar-title></v-toolbar-title>
       <v-layout row align-center style="max-width: 650px;margin-left: 30px;">
         <v-text-field
           placeholder="Search..."
