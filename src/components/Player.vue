@@ -44,9 +44,11 @@ export default {
 	
  }, 
  mounted() {
- 	var ref = firebase.database().ref('users/'+firebase.auth().currentUser.uid+'/playlists');
-    this.$bindAsArray('playlists', ref)  
-
+ 	if(firebase.auth().currentUser){
+		var ref = firebase.database().ref('users/'+firebase.auth().currentUser.uid+'/playlists');
+    	this.$bindAsArray('playlists', ref)  
+ 	}
+ 	
  	var iFrame = document.getElementById( 'player' );
     window.addEventListener('resize', function(e) {		
 		resizeIFrameToFitContent( iFrame );
@@ -54,9 +56,9 @@ export default {
 
 	resizeIFrameToFitContent(iFrame)
 
-	function resizeIFrameToFitContent( iFrame ) {		
-    	iFrame.width  = window.innerWidth-80;
-    	iFrame.height  = window.innerHeight-200;    	
+	function resizeIFrameToFitContent( iFrame ) {		   
+    	iFrame.width  = document.getElementsByClassName('container')[0].clientWidth-60;
+    	iFrame.height  = document.getElementsByClassName('container')[0].clientHeight-300;    	
 	}
  },  
  methods: {

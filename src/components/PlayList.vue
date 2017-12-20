@@ -72,10 +72,10 @@ export default {
   methods: {   
     onYouTubeIframeAPIReady: function(){
       var that = this;    
-        var player, playing = false;
+        var player, playing = true;
         player = new YT.Player('video', {
-            height: '0',
-            width: '0',            
+            height: '1',
+            width: '1',            
             events: {
                 'onStateChange': onPlayerStateChange
             }
