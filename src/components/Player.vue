@@ -5,7 +5,7 @@
      
      <v-layout row wrap>
      <h3>{{video.snippet.title}}</h3>        
-     <iframe id="player" type="text/html" width="640" height="360" :src="'http://www.youtube.com/embed/'+videoId+'?autoplay=1'" frameborder="0"></iframe>
+     <iframe id="player" type="text/html" width="640" height="360" :src="'https://www.youtube.com/embed/'+videoId+'?autoplay=1'" frameborder="0"></iframe>
      <!-- <p>{{video.snippet.description}}</p> -->     
      <v-menu offset-y>
       <v-btn color="error" slot="activator">+ ADD TO PLAYLIST</v-btn>
